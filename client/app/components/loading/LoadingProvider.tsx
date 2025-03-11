@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from "react";
-import Spinner from "./Spinner"; 
+"use client";
+import React, { createContext, useContext, useState, useCallback } from "react";
+import Spinner from "./Spinner";
 
 // Create the context
 const LoadingContext = createContext({
@@ -15,8 +16,9 @@ export const useLoading = () => useContext(LoadingContext);
 const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const showSpinner = () => setIsLoading(true);
-  const hideSpinner = () => setIsLoading(false);
+  // Memoize showSpinner and hideSpinner
+  const showSpinner = useCallback(() => setIsLoading(true), []);
+  const hideSpinner = useCallback(() => setIsLoading(false), []);
 
   return (
     <LoadingContext.Provider value={{ isLoading, showSpinner, hideSpinner }}>

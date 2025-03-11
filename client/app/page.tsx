@@ -6,6 +6,8 @@ import { MarketCard } from "./components/ui";
 import { SearchX } from "lucide-react";
 import { DummyMarketType } from "./types";
 import axios from "axios";
+import { useLoading } from "./components/loading/LoadingProvider";
+import Spinner from "./components/loading/Spinner";
 
 export default function Home() {
   const router = useRouter();
@@ -13,21 +15,22 @@ export default function Home() {
   const currentCategory = searchParams.get("category") || "All";
   const [allMarkets,setAllMarkets]=useState<DummyMarketType|[]>([])
   // Safely handle undefined or empty markets
+  const {showSpinner, hideSpinner} =useLoading();
 
   useEffect(() => {
-   
-      (async()=>{
-        try {
-          const res=await axios.get('/api/dummy_data/')
-          console.log(res);
-          setAllMarkets(res.data)
-        } catch (error) {
-          console.log(error)
-        }
-       
-        
-      })()
-      
+    const fetchMarkets = async () => {
+      showSpinner(); // Show spinner before fetching
+      try {
+        const res = await axios.get("/api/dummy_data/");
+        setAllMarkets(res.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        hideSpinner(); // Hide spinner after fetching (whether successful or not)
+      }
+    };
+
+    fetchMarkets();
   }, []);
   const markets: DummyMarketType[] = Array.isArray(allMarkets)
     ? allMarkets
