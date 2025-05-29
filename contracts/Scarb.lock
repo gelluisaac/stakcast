@@ -121,14 +121,6 @@ source = "registry+https://scarbs.xyz/"
 checksum = "sha256:fd348b31c4a4407add33adc3c2b8f26dca71dbd7431faaf726168f37a91db0c1"
 
 [[package]]
-name = "pragma_lib"
-version = "1.0.0"
-source = "git+https://github.com/astraly-labs/pragma-lib?branch=main#c429179ed6153004b79657337c589548b73d5151"
-dependencies = [
- "openzeppelin",
-]
-
-[[package]]
 name = "snforge_scarb_plugin"
 version = "0.40.0"
 source = "registry+https://scarbs.xyz/"
@@ -148,6 +140,5 @@ name = "stakcast"
 version = "0.1.0"
 dependencies = [
  "openzeppelin",
- "pragma_lib",
  "snforge_std",
 ]

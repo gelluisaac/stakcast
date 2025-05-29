@@ -6,3 +6,5 @@ env
 ./env
 .env
 .env.production
+pr.md
+str.md
